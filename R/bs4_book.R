@@ -260,6 +260,13 @@ bs4_chapters_tweak <- function(output,
 }
 
 bs4_chapter_tweak <- function(path, toc, rmd_index = NULL, repo = NULL) {
+
+  if (basename(path) == "table-of-contents.html") {
+    new_path <- sub("contents.html$", "contents2.html$", path)
+    file.rename(path, new_path)
+    path <- new_path
+  }
+
   text <- xfun::file_string(path)
 
   # Convert ANSI escape to \u2029 since control characters are ignored in XML2
